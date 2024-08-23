@@ -1,0 +1,97 @@
+/* General Styles */
+.food-details {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.food-header {
+  margin-bottom: 20px;
+}
+
+.food-name {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+
+.food-info {
+  list-style: none;
+  padding: 0;
+  font-size: 1.1em;
+}
+
+.food-info li {
+  margin-bottom: 5px;
+}
+
+.food-actions {
+  margin-top: 10px;
+}
+
+.edit-link {
+  margin-right: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.edit-link:hover {
+  text-decoration: underline;
+}
+
+.delete-button {
+  background-color: #e57373;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #c62828;
+}
+
+.comments-section {
+  margin-top: 20px;
+}
+
+.no-comments {
+  margin-bottom: 20px;
+}
+
+.comments-list {
+  margin-top: 10px;
+}
+
+.comment {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-comment-button {
+  background-color: #e57373;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  align-self: flex-start;
+}
+
+.delete-comment-button:hover {
+  background-color: #c62828;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.5em;
+  color: #007bff;
+}

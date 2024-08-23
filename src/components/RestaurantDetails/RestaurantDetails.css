@@ -1,0 +1,134 @@
+/* General Styles */
+.restaurant-details {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.restaurant-header {
+  margin-bottom: 20px;
+}
+
+.restaurant-name {
+  font-size: 2em;
+  margin-bottom: 10px;
+  text-align: center;
+  color: #333;
+}
+
+.restaurant-type, .restaurant-description, .restaurant-location, .restaurant-cuisine {
+  font-size: 1.2em;
+  margin: 5px 0;
+  text-align: center;
+  color: #555;
+}
+
+.menu-section {
+  margin-bottom: 20px;
+}
+
+.menu-category {
+  margin-bottom: 20px;
+}
+
+.menu-category h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.menu-category ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu-category li {
+  margin-bottom: 5px;
+}
+
+.menu-item-link {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 1.2em;
+}
+
+.menu-item-link:hover {
+  text-decoration: underline;
+}
+
+.actions {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.action-link {
+  display: inline-block;
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.action-link:hover {
+  background-color: #0056b3;
+}
+
+.delete-form {
+  display: inline;
+}
+
+.action-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #dc3545;
+  color: white;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #c82333;
+}
+
+.comments-section {
+  margin-top: 20px;
+}
+
+.comments-section h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.comment {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.delete-comment-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.delete-comment-button:hover {
+  background-color: #c82333;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.5em;
+  color: #007bff;
+}

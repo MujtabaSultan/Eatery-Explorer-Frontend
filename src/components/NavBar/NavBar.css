@@ -1,0 +1,41 @@
+/* NavBar.css */
+
+.navbar-container {
+  background-color: #333; /* Color of the navbar background */
+  padding: 1rem;         /* Padding around the navbar */
+  display: flex;         /* Flexbox for alignment */
+  justify-content: center; /* Center the nav items */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center; /* Center items vertically */
+}
+
+.navbar-links {
+  display: flex; /* Flexbox for navbar links */
+  gap: 2rem;    /* Spacing between links */
+}
+
+.navbar-link {
+  color: white; /* Color of the text */
+  text-decoration: none; /* Remove underline from links */
+  font-size: 1.1rem; /* Increase text size */
+  transition: color 0.3s; /* Smooth color transition */
+}
+
+.navbar-link:hover {
+  color: #ffa500; /* Change color on hover */
+}
+
+@media (max-width: 768px) {
+  .navbar-links {
+    flex-direction: column; /* Stack links vertically on smaller screens */
+    align-items: center;    /* Center align the links */
+  }
+
+  .navbar-link {
+    margin: 0.5rem 0; /* Spacing between stacked links */
+  }
+}

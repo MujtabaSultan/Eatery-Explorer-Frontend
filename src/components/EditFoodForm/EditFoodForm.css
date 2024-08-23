@@ -1,0 +1,179 @@
+/* General Styles for Forms */
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* Specific Component Styles */
+
+/* Add Food Form */
+.add-food-form .form-group {
+  margin-bottom: 1rem;
+}
+
+/* Edit Food Form */
+.edit-food-form .form-group {
+  margin-bottom: 1rem;
+}
+
+/* Comment Form */
+.comment-form-container {
+  margin: 1rem auto;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-textarea {
+  height: 80px;
+}
+
+.delete-comment-button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.delete-comment-button:hover {
+  background-color: #c82333;
+}
+
+/* Food Details */
+.food-details-container {
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.food-details-header {
+  margin-bottom: 1rem;
+}
+
+.food-details-body {
+  margin-bottom: 1.5rem;
+}
+
+.food-details-actions {
+  margin-top: 1rem;
+}
+
+.edit-link,
+.delete-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  margin-right: 0.5rem;
+}
+
+.edit-link:hover,
+.delete-button:hover {
+  background-color: #0056b3;
+}
+
+/* Dashboard */
+.dashboard-container {
+  padding: 2rem;
+  background: #f8f9fa;
+}
+
+.dashboard-main {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-message {
+  margin-bottom: 1rem;
+}
+
+.dashboard-description {
+  font-size: 1rem;
+}
+
+/* Add Food Form Styles */
+.add-food-form {
+  margin-top: 1.5rem;
+}
+
+.add-food-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.add-food-form input,
+.add-food-form select,
+.add-food-form textarea {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.add-food-form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.add-food-form button:hover {
+  background-color: #0056b3;
+}

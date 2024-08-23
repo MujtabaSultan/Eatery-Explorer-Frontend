@@ -5,34 +5,23 @@ import { useEffect, useState } from "react";
 import restaurantService from "../../services/restaurantService";
 import commentService from "../../services/commentService";
 import { Link } from "react-router-dom";
-// Components
-import AuthorDate from "../common/AuthorDate";
-import CommentForm from "../CommentForm/CommentForm";
 
-const foodDetails = (props) => {
+// Components
+import CommentForm from "../CommentForm/CommentForm";
+import './foodDetails.css';
+
+const FoodDetails = (props) => {
   const { restaurantId, foodId } = useParams();
 
   const [food, setFood] = useState(null);
-  const [restoId, setRestoId] = useState(null);
   const [restaurant, setRestaurant] = useState(props.selectedRestaurant);
-
-  // async function getRestaurant() {
-  //   const restaurantData = await restaurantService.show(restaurantId);
-  //   // console.log(restaurantData);
-  //   setRestaurant(restaurantData);
-  //   // setComment(restaurantData.comments);
-  //   // props.setRestId(restaurantsId);
-  // }
 
   useEffect(() => {
     async function getFood() {
       const foodData = await restaurantService.showFood(restaurantId, foodId);
       setFood(foodData);
-      //console.log("yi i", food);
-      setRestoId(restaurantId);
     }
     getFood();
-    // getRestaurant();
   }, [foodId, restaurantId]);
 
   const handleAddComment = async (formData) => {
@@ -42,98 +31,79 @@ const foodDetails = (props) => {
       formData
     );
 
-    const copyFood = { ...food };
-    copyFood.comments.push(newComment);
-    setFood(copyFood);
+    setFood(prevFood => ({
+      ...prevFood,
+      comments: [...prevFood.comments, newComment]
+    }));
   };
 
-  //----------------------------------------------
-
-  const handlesubmitDelete = async (e) => {
-    e.preventDefault();
-    handleDeleteComment(restaurantId, foodId, e.target.id);
-
-    const newRes = food.comments.filter(
-      (comment) => comment._id !== e.target.id
-    );
-
-    const updatefood = { ...food, comments: newRes };
-    setFood(updatefood);
-
-    console.log(newRes);
-    //setRestaurant(newRes);
-  };
-
-  //----------------------------------------------
-
-  const handleDeleteComment = async (rId, foodId, commentId) => {
-    commentService.deleteFoodComment(rId, foodId, commentId);
-
-    // await props.handleDeleteRestaurant(restaurantsId);
-    // navigate(`/owners/${props.user.id}`);
+  const handleDeleteComment = async (commentId) => {
+    await commentService.deleteFoodComment(restaurantId, foodId, commentId);
+    setFood(prevFood => ({
+      ...prevFood,
+      comments: prevFood.comments.filter(comment => comment._id !== commentId)
+    }));
   };
 
   const handleDeleteClick = () => {
-    props.handleDeleteFood(restoId, food._id);
+    props.handleDeleteFood(restaurantId, food._id);
   };
 
-  //----------------------------------------------
-
   if (!food) {
-    return <main>loading....</main>;
+    return <main className="loading">Loading...</main>;
   }
 
   return (
-    <>
-      <h4>{food.name}</h4>
-      <ul>
-        <li>dish type : {food.type}</li>
-        <li>dish description :{food.description}</li>
-        <li>price : {food.price}</li>
+    <div className="food-details">
+      <div className="food-header">
+        <h4 className="food-name">{food.name}</h4>
+        <ul className="food-info">
+          <li><strong>Dish Type:</strong> {food.type}</li>
+          <li><strong>Description:</strong> {food.description}</li>
+          <li><strong>Price:</strong> ${food.price}</li>
+        </ul>
         {props.user.id === restaurant.owner && (
-          <p>
-            <Link to={`/restaurants/${restaurantId}/menu/${foodId}/edit`}>
-              Edit
-            </Link>
-            <button onClick={handleDeleteClick}>Delete Food</button>
-          </p>
+          <div className="food-actions">
+            <Link to={`/restaurants/${restaurantId}/menu/${foodId}/edit`} className="edit-link">Edit</Link>
+            <button onClick={handleDeleteClick} className="delete-button">Delete Food</button>
+          </div>
         )}
-      </ul>
+      </div>
 
-      {food.comments.length === 0 ? (
-        <>
-          <h4>no comments yet</h4>
-          <CommentForm handleAddComment={handleAddComment} />
-        </>
-      ) : (
-        <>
-          <ul>
-            <h4>comments:</h4>
-
+      <div className="comments-section">
+        {food.comments.length === 0 ? (
+          <div className="no-comments">
+            <h4>No comments yet</h4>
             <CommentForm handleAddComment={handleAddComment} />
-            {food.comments.map((comment) => {
-              return (
-                <div>
-                  <form
-                    action=""
-                    id={comment._id}
-                    onSubmit={handlesubmitDelete}
-                  >
-                    <p>
-                      <b>{comment.authorName}</b>: {comment.text}
-                    </p>
-
-                    {comment.authorId === props.user.id ? (
-                      <button type="submit">delete</button>
-                    ) : null}
-                  </form>
-                </div>
-              );
-            })}
-          </ul>
-        </>
-      )}
-    </>
+          </div>
+        ) : (
+          <div className="comments-list">
+            <h4>Comments:</h4>
+            <CommentForm handleAddComment={handleAddComment} />
+            {food.comments.map((comment) => (
+              <div key={comment._id} className="comment">
+                <form
+                  className="comment-form"
+                  id={comment._id}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleDeleteComment(comment._id);
+                  }}
+                >
+                  <p>
+                    <strong>{comment.authorName}</strong>: {comment.text}
+                  </p>
+                  {comment.authorId === props.user.id && (
+                    <button type="submit" className="delete-comment-button">Delete</button>
+                  )}
+                </form>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
-export default foodDetails;
+
+export default FoodDetails;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import restaurantService from "../../services/restaurantService";
+import './EditFoodForm.css';
 
 const EditFoodForm = ({ handleUpdateFood }) => {
   const { restaurantId, foodId } = useParams();
@@ -44,55 +45,69 @@ const EditFoodForm = ({ handleUpdateFood }) => {
   };
 
   return (
-    <main>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Food Name:</label>
-        <input
-          required
-          type="text"
-          name="name"
-          id="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
+    <div className="edit-food-form-container">
+      <main className="edit-food-form-main">
+        <form onSubmit={handleSubmit} className="edit-food-form">
+          <div className="form-group">
+            <label htmlFor="name">Food Name:</label>
+            <input
+              required
+              type="text"
+              name="name"
+              id="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="form-input"
+            />
+          </div>
 
-        <label htmlFor="type">Type:</label>
-        <select
-          required
-          name="type"
-          id="type"
-          value={formData.type}
-          onChange={handleChange}
-        >
-          <option value="Appetizer">Appetizer</option>
-          <option value="Main Course">Main Course</option>
-          <option value="Dessert">Dessert</option>
-          <option value="Beverage">Beverage</option>
-        </select>
+          <div className="form-group">
+            <label htmlFor="type">Type:</label>
+            <select
+              required
+              name="type"
+              id="type"
+              value={formData.type}
+              onChange={handleChange}
+              className="form-select"
+            >
+              <option value="Appetizer">Appetizer</option>
+              <option value="Main Course">Main Course</option>
+              <option value="Dessert">Dessert</option>
+              <option value="Beverage">Beverage</option>
+            </select>
+          </div>
 
-        <label htmlFor="description">Description:</label>
-        <textarea
-          required
-          name="description"
-          id="description"
-          value={formData.description}
-          onChange={handleChange}
-        />
+          <div className="form-group">
+            <label htmlFor="description">Description:</label>
+            <textarea
+              required
+              name="description"
+              id="description"
+              value={formData.description}
+              onChange={handleChange}
+              className="form-textarea"
+            />
+          </div>
 
-        <label htmlFor="price">Price:</label>
-        <input
-          required
-          type="number"
-          step="0.01"
-          name="price"
-          id="price"
-          value={formData.price}
-          onChange={handleChange}
-        />
+          <div className="form-group">
+            <label htmlFor="price">Price:</label>
+            <input
+              required
+              type="number"
+              step="0.01"
+              name="price"
+              id="price"
+              value={formData.price}
+              onChange={handleChange}
+              className="form-input"
+            />
+          </div>
 
-        <button type="submit">Update Food</button>
-      </form>
-    </main>
+          <button type="submit" className="submit-button">Update Food</button>
+        </form>
+      </main>
+    </div>
   );
 };
 

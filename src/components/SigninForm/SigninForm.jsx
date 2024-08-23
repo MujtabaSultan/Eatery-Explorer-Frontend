@@ -1,8 +1,7 @@
-// SigninForm
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import authService from '../../services/authService';
+import './SigninForm.css';
 
 const SigninForm = (props) => {
   const navigate = useNavigate();
@@ -24,8 +23,7 @@ const SigninForm = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await authService.signin(formData); // TODO build signin service function
-
+      const user = await authService.signin(formData);
       props.setUser(user);
       navigate('/');
     } catch (err) {
@@ -34,12 +32,12 @@ const SigninForm = (props) => {
   };
 
   return (
-    <main>
-      <h1>Log In</h1>
-      <p>{message}</p>
-      <form autoComplete="off" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Username:</label>
+    <main className="signin-main">
+      <h1 className="signin-heading">Log In</h1>
+      <p className="signin-message">{message}</p>
+      <form autoComplete="off" onSubmit={handleSubmit} className="signin-form">
+        <div className="signin-form-group">
+          <label htmlFor="username" className="signin-form-label">Username:</label>
           <input
             type="text"
             autoComplete="off"
@@ -47,10 +45,11 @@ const SigninForm = (props) => {
             value={formData.username}
             name="username"
             onChange={handleChange}
+            className="signin-form-input"
           />
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>
+        <div className="signin-form-group">
+          <label htmlFor="password" className="signin-form-label">Password:</label>
           <input
             type="password"
             autoComplete="off"
@@ -58,12 +57,13 @@ const SigninForm = (props) => {
             value={formData.password}
             name="password"
             onChange={handleChange}
+            className="signin-form-input"
           />
         </div>
-        <div>
-          <button>Log In</button>
-          <Link to="/">
-            <button>Cancel</button>
+        <div className="signin-form-actions">
+          <button type="submit" className="signin-form-button">Log In</button>
+          <Link to="/" className="signin-form-link">
+            <button type="button" className="signin-form-button">Cancel</button>
           </Link>
         </div>
       </form>

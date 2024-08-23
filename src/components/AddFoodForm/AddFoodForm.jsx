@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import './AddFoodForm.css'; // Import the CSS file
 
 const AddFoodForm = ({ handleAddFood }) => {
   const { restaurantId } = useParams(); 
@@ -21,7 +22,7 @@ const AddFoodForm = ({ handleAddFood }) => {
 
   return (
     <main>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="add-food-form">
         <label htmlFor="name">Food Name:</label>
         <input
           required
@@ -30,15 +31,17 @@ const AddFoodForm = ({ handleAddFood }) => {
           id="name"
           value={formData.name}
           onChange={handleChange}
+          className="form-input"
         />
         
-        <label htmlFor="type">type:</label>
+        <label htmlFor="type">Type:</label>
         <select
           required
           name="type"
           id="type"
           value={formData.type}
           onChange={handleChange}
+          className="form-select"
         >
           <option value="Appetizer">Appetizer</option>
           <option value="Main Course">Main Course</option>
@@ -53,6 +56,7 @@ const AddFoodForm = ({ handleAddFood }) => {
           id="description"
           value={formData.description}
           onChange={handleChange}
+          className="form-textarea"
         />
         
         <label htmlFor="price">Price:</label>
@@ -63,9 +67,10 @@ const AddFoodForm = ({ handleAddFood }) => {
           id="price"
           value={formData.price}
           onChange={handleChange}
+          className="form-input"
         />
 
-        <button type="submit">Add Food</button>
+        <button type="submit" className="submit-button">Add Food</button>
       </form>
     </main>
   );

@@ -1,0 +1,56 @@
+.owner-details {
+  padding: 2rem;
+  background-color: #f9f9f9;
+}
+
+.owner-header {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.owner-header h1 {
+  margin: 0 0 1rem 0;
+  font-size: 1.75rem;
+}
+
+.no-restaurants {
+  font-style: italic;
+}
+
+.restaurant-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.restaurant-item {
+  margin-bottom: 1rem;
+}
+
+.restaurant-link {
+  text-decoration: none;
+}
+
+.restaurant-card {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+.restaurant-card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.restaurant-name {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.25rem;
+}

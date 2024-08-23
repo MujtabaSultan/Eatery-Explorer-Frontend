@@ -1,6 +1,7 @@
-import { useParams, Link } from "react-router-dom"; // Import Link
+import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import restaurantService from "../../services/restaurantService";
+import './OwnerDetails.css';
 
 const OwnerDetails = () => {
   const { ownerId } = useParams();
@@ -12,12 +13,12 @@ const OwnerDetails = () => {
   useEffect(() => {
     const fetchRestaurantsAndOwner = async () => {
       try {
-        const restaurantsData = await restaurantService.index(); // Fetch all restaurants
+        const restaurantsData = await restaurantService.index();
         setRestaurants(
           restaurantsData.filter((restaurant) => restaurant.owner === ownerId)
         );
 
-        const ownerData = await restaurantService.getOwnerById(ownerId); // Fetch owner details
+        const ownerData = await restaurantService.getOwnerById(ownerId);
         setOwner(ownerData);
       } catch (error) {
         setError(error);
@@ -29,23 +30,23 @@ const OwnerDetails = () => {
     fetchRestaurantsAndOwner();
   }, [ownerId]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">Error: {error.message}</div>;
 
   return (
-    <main>
-      <header>
+    <main className="owner-details">
+      <header className="owner-header">
         <h1>Restaurants Owned by {owner ? owner.username : "Loading..."}</h1>
         {restaurants.length === 0 ? (
-          <p>No restaurants found.</p>
+          <p className="no-restaurants">No restaurants found.</p>
         ) : (
-          <ul>
+          <ul className="restaurant-list">
             {restaurants.map((restaurant) => (
-              <li key={restaurant._id}>
-                <Link to={`/restaurants/${restaurant._id}`}>
-                  <article>
-                    <p>{restaurant.name}</p>
-                  </article>
+              <li key={restaurant._id} className="restaurant-item">
+                <Link to={`/restaurants/${restaurant._id}`} className="restaurant-link">
+                  <div className="restaurant-card">
+                    <p className="restaurant-name">{restaurant.name}</p>
+                  </div>
                 </Link>
               </li>
             ))}
