@@ -35,6 +35,7 @@ const App = () => {
     async function getRestaurants() {
       const restaurantData = await restaurantService.index();
       setRestaurants(restaurantData);
+      setUser(authService.getUser())
     }
     if (user) {
       getRestaurants();
@@ -146,7 +147,7 @@ const App = () => {
 
   return (
     <>
-      <NavBar user={user} handleSignout={handleSignout} />
+      <NavBar user={user} handleSignout={handleSignout} setUser={setUser} />
       <Routes>
         {user ? (
           // Protected Routes:
@@ -184,7 +185,9 @@ const App = () => {
             />
             <Route
               path="/restaurants/new"
-              element={<RestaurantForm handleAddRestaurant={handleAddRestaurant} />}
+              element={
+                <RestaurantForm handleAddRestaurant={handleAddRestaurant} />
+              }
             />
             <Route
               path="restaurants/owner/:ownerId"

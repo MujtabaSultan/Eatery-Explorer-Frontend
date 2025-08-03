@@ -1,31 +1,79 @@
-import { Link } from 'react-router-dom';
-import './NavBar.css';
-const NavBar = ({ user, handleSignout }) => {
-
+import { Link } from "react-router-dom";
+import "./NavBar.css";
+import { useEffect } from "react";
+import authService from "../../services/authService";
+const NavBar = ({ user, handleSignout, setUser }) => {
   //console.log("thia ia user",user)
+  useEffect(() => {
+    window.logInCallBack = async (response) => {
+      try {
+        const googleCredential = response.credential; // JWT from Google
+        const userData = await authService.googleAuth(googleCredential); // Your backend call
+        console.log(userData)
+        setUser(userData);
+        navigate("/");
+      } catch (error) {
+        console.error("Google login failed:", error);
+      }
+    };
+
+    if (window.google && window.google.accounts) {
+      window.google.accounts.id.initialize({
+        client_id:
+          "1026669336579-la922so0dj4f6a8igro4i8bcchi76cn1.apps.googleusercontent.com",
+        callback: window.logInCallBack,
+        ux_mode: "popup",
+      });
+
+      window.google.accounts.id.renderButton(
+        document.getElementById("googleSignInDiv"),
+        {
+          theme: "outline",
+          size: "large",
+          text: "signin_with",
+          shape: "rectangular",
+          logo_alignment: "left",
+        }
+      );
+    }
+  }, [user]);
+
   return (
     <div className="navbar-container">
-    
-
       {user ? (
-          <nav className="navbar-nav">
+        <nav className="navbar-nav">
           <div className="navbar-links">
-            <Link to="/" className="navbar-link">Home</Link>
-            <Link to="/restaurants" className="navbar-link">View all Restaurants</Link>
-            <Link onClick={handleSignout} to="/" className="navbar-link">Sign Out</Link>
-            <Link to={`/restaurants/owner/${user.id}`} className="navbar-link">View My Restaurants</Link>
-            <Link to="/restaurants/new" className="navbar-link">New Restaurant</Link>
+            <Link to="/" className="navbar-link">
+              Home
+            </Link>
+            <Link to="/restaurants" className="navbar-link">
+              View all Restaurants
+            </Link>
+            <Link onClick={handleSignout} to="/" className="navbar-link">
+              Sign Out
+            </Link>
+            <Link to={`/restaurants/owner/${user.id}`} className="navbar-link">
+              View My Restaurants
+            </Link>
+            <Link to="/restaurants/new" className="navbar-link">
+              New Restaurant
+            </Link>
           </div>
         </nav>
       ) : (
         <nav className="navbar-nav">
-        <div className="navbar-links">
-          <Link to="/signin" className="navbar-link">Sign In</Link>
-          <Link to="/signup" className="navbar-link">Sign Up</Link>
-        </div>
-      </nav>
+          <div className="navbar-links">
+            <Link to="/signin" className="navbar-link">
+              Sign In
+            </Link>
+            <Link to="/signup" className="navbar-link">
+              Sign Up
+            </Link>
+            <div id="googleSignInDiv"></div>
+          </div>
+        </nav>
       )}
-     </div>
+    </div>
   );
 };
 
