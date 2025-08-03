@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, BrowserRouter } from "react-router-dom";
 import authService from "./services/authService";
 import restaurantService from "./services/restaurantService";
 import FoodDetails from "./components/foodDetails/foodDetails";
@@ -35,7 +35,7 @@ const App = () => {
     async function getRestaurants() {
       const restaurantData = await restaurantService.index();
       setRestaurants(restaurantData);
-      setUser(authService.getUser())
+      setUser(authService.getUser());
     }
     if (user) {
       getRestaurants();
@@ -147,79 +147,80 @@ const App = () => {
 
   return (
     <>
-      <NavBar user={user} handleSignout={handleSignout} setUser={setUser} />
-      <Routes>
-        {user ? (
-          // Protected Routes:
-          <>
-            <Route path="/owners/:ownerId" element={<OwnerDetails />} />
+      <BrowserRouter>
+        <NavBar user={user} handleSignout={handleSignout} setUser={setUser} />
+        <Routes>
+          {user ? (
+            <>
+              <Route path="/owners/:ownerId" element={<OwnerDetails />} />
 
-            <Route path="/" element={<Dashboard user={user} />} />
-            <Route
-              path="/restaurants"
-              element={<RestaurantsList restaurants={restaurants} />}
-            />
-            <Route
-              path="/restaurants/:restaurantsId"
-              element={
-                <RestaurantDetails
-                  setRestId={setRestId}
-                  user={user}
-                  setSelectedRestaurant={setSelectedRestaurant}
-                  handleDeleteRestaurant={handleDeleteRestaurant}
-                />
-              }
-            />
+              <Route path="/" element={<Dashboard user={user} />} />
+              <Route
+                path="/restaurants"
+                element={<RestaurantsList restaurants={restaurants} />}
+              />
+              <Route
+                path="/restaurants/:restaurantsId"
+                element={
+                  <RestaurantDetails
+                    setRestId={setRestId}
+                    user={user}
+                    setSelectedRestaurant={setSelectedRestaurant}
+                    handleDeleteRestaurant={handleDeleteRestaurant}
+                  />
+                }
+              />
 
-            <Route
-              path={`/restaurants/:restaurantId/menu/:foodId`}
-              element={
-                <FoodDetails
-                  restaurants={restaurants}
-                  resId={resId}
-                  user={user}
-                  selectedRestaurant={selectedRestaurant}
-                  handleDeleteFood={handleDeleteFood}
-                />
-              }
-            />
-            <Route
-              path="/restaurants/new"
-              element={
-                <RestaurantForm handleAddRestaurant={handleAddRestaurant} />
-              }
-            />
-            <Route
-              path="restaurants/owner/:ownerId"
-              element={<OwnerDetails />}
-            />
-            <Route
-              path="/restaurants/:restaurantId/edit"
-              element={
-                <UpdateForm handleUpdateRestaurant={handleUpdateRestaurant} />
-              }
-            />
-            <Route
-              path="/restaurants/:restaurantId/add-food"
-              element={<AddFoodForm handleAddFood={handleAddFood} />}
-            />
-            <Route
-              path="/restaurants/:restaurantId/menu/:foodId/edit"
-              element={
-                <EditFoodForm
-                  handleUpdateFood={handleUpdateFood}
-                  selectedRestaurant={selectedRestaurant}
-                />
-              }
-            />
-          </>
-        ) : (
-          // Public Route:
-          <Route path="/" element={<Landing />} />
-        )}
-        <Route path="/signup" element={<SignupForm setUser={setUser} />} />
-        <Route path="/signin" element={<SigninForm setUser={setUser} />} />
-      </Routes>
+              <Route
+                path={`/restaurants/:restaurantId/menu/:foodId`}
+                element={
+                  <FoodDetails
+                    restaurants={restaurants}
+                    resId={resId}
+                    user={user}
+                    selectedRestaurant={selectedRestaurant}
+                    handleDeleteFood={handleDeleteFood}
+                  />
+                }
+              />
+              <Route
+                path="/restaurants/new"
+                element={
+                  <RestaurantForm handleAddRestaurant={handleAddRestaurant} />
+                }
+              />
+              <Route
+                path="restaurants/owner/:ownerId"
+                element={<OwnerDetails />}
+              />
+              <Route
+                path="/restaurants/:restaurantId/edit"
+                element={
+                  <UpdateForm handleUpdateRestaurant={handleUpdateRestaurant} />
+                }
+              />
+              <Route
+                path="/restaurants/:restaurantId/add-food"
+                element={<AddFoodForm handleAddFood={handleAddFood} />}
+              />
+              <Route
+                path="/restaurants/:restaurantId/menu/:foodId/edit"
+                element={
+                  <EditFoodForm
+                    handleUpdateFood={handleUpdateFood}
+                    selectedRestaurant={selectedRestaurant}
+                  />
+                }
+              />
+            </>
+          ) : (
+            // Public Route:
+            <Route path="/" element={<Landing />} />
+          )}
+          <Route path="/signup" element={<SignupForm setUser={setUser} />} />
+          <Route path="/signin" element={<SigninForm setUser={setUser} />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };
