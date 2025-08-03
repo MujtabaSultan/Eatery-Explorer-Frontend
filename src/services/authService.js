@@ -93,6 +93,7 @@ const googleAuth = async (data) => {
   window.localStorage.setItem("token", taken.token);
 
   return taken;
+  getUser();
 };
 
 export default {
