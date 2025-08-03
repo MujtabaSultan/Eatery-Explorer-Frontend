@@ -2,14 +2,16 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { useEffect } from "react";
 import authService from "../../services/authService";
+import { useNavigate } from "react-router-dom";
+const navigate = useNavigate();
+
 const NavBar = ({ user, handleSignout, setUser }) => {
-  //console.log("thia ia user",user)
   useEffect(() => {
     window.logInCallBack = async (response) => {
       try {
-        const googleCredential = response.credential; // JWT from Google
-        const userData = await authService.googleAuth(googleCredential); // Your backend call
-        console.log(userData)
+        const googleCredential = response.credential; 
+        const userData = await authService.googleAuth(googleCredential); 
+        console.log(userData);
         setUser(userData);
         navigate("/");
       } catch (error) {
