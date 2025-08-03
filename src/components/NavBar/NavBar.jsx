@@ -3,14 +3,14 @@ import "./NavBar.css";
 import { useEffect } from "react";
 import authService from "../../services/authService";
 import { useNavigate } from "react-router-dom";
-const navigate = useNavigate();
 
 const NavBar = ({ user, handleSignout, setUser }) => {
+  const navigate = useNavigate();
   useEffect(() => {
     window.logInCallBack = async (response) => {
       try {
-        const googleCredential = response.credential; 
-        const userData = await authService.googleAuth(googleCredential); 
+        const googleCredential = response.credential;
+        const userData = await authService.googleAuth(googleCredential);
         console.log(userData);
         setUser(userData);
         navigate("/");
