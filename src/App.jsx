@@ -30,12 +30,10 @@ const App = () => {
     setRestaurants(restaurantData);
   }
 
-  const mario = 10;
   useEffect(() => {
     async function getRestaurants() {
       const restaurantData = await restaurantService.index();
       setRestaurants(restaurantData);
-      setUser(authService.getUser());
     }
     if (user) {
       getRestaurants();
