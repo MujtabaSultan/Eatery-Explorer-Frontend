@@ -27,16 +27,18 @@ const NavBar = ({ user, handleSignout, setUser }) => {
         ux_mode: "popup",
       });
 
-      window.google.accounts.id.renderButton(
-        document.getElementById("googleSignInDiv"),
-        {
-          theme: "outline",
-          size: "large",
-          text: "signin_with",
-          shape: "rectangular",
-          logo_alignment: "left",
-        }
-      );
+      if (!user) {
+        window.google.accounts.id.renderButton(
+          document.getElementById("googleSignInDiv"),
+          {
+            theme: "outline",
+            size: "large",
+            text: "signin_with",
+            shape: "rectangular",
+            logo_alignment: "left",
+          }
+        );
+      }
     }
   }, [user]);
 
