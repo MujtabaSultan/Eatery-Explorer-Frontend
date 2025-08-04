@@ -19,11 +19,11 @@ const NavBar = ({ user, handleSignout, setUser }) => {
         console.error("Google login failed:", error);
       }
     };
-
     if (window.google && window.google.accounts) {
+      const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
       window.google.accounts.id.initialize({
-        client_id:
-          "1026669336579-la922so0dj4f6a8igro4i8bcchi76cn1.apps.googleusercontent.com",
+        client_id: clientId,
         callback: window.logInCallBack,
         ux_mode: "popup",
       });
