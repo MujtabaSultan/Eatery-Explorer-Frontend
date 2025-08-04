@@ -14,6 +14,7 @@ const NavBar = ({ user, handleSignout, setUser }) => {
         console.log(userData);
         setUser(userData);
         navigate("/");
+        window.location.reload();
       } catch (error) {
         console.error("Google login failed:", error);
       }

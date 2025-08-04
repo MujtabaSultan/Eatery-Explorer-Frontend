@@ -28,11 +28,9 @@ const foodDetails = (props) => {
     async function getFood() {
       const foodData = await restaurantService.showFood(restaurantId, foodId);
       setFood(foodData);
-      //console.log("yi i", food);
       setRestoId(restaurantId);
     }
     getFood();
-    // getRestaurant();
   }, [foodId, restaurantId]);
 
   const handleAddComment = async (formData) => {
@@ -60,7 +58,6 @@ const foodDetails = (props) => {
     const updatefood = { ...food, comments: newRes };
     setFood(updatefood);
 
-    console.log(newRes);
     //setRestaurant(newRes);
   };
 

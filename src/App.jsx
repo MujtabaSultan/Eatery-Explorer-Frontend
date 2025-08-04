@@ -34,7 +34,6 @@ const App = () => {
     async function getRestaurants() {
       const restaurantData = await restaurantService.index();
       setRestaurants(restaurantData);
-      setUser(authService.getUser());
     }
     if (user) {
       getRestaurants();

@@ -91,9 +91,7 @@ const googleAuth = async (data) => {
   });
   const taken = await res.json();
   window.localStorage.setItem("token", taken.token);
-
   return taken;
-  getUser();
 };
 
 export default {

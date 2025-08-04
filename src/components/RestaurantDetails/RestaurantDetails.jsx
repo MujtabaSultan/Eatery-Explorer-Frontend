@@ -58,7 +58,6 @@ const RestaurantDetails = (props) => {
     const updateRestaurant = { ...restaurant, comments: newRes };
     setRestaurant(updateRestaurant);
 
-    console.log(newRes);
     //setRestaurant(newRes);
   };
   const handleDeleteComment = async (rId, commentId) => {
