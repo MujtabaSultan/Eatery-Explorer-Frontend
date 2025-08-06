@@ -6,25 +6,63 @@ import { useNavigate } from "react-router-dom";
 
 const NavBar = ({ user, handleSignout, setUser }) => {
   const navigate = useNavigate();
+  // useEffect(() => {
+  //   window.logInCallBack = async (response) => {
+  //     try {
+  //       const googleCredential = response.credential;
+  //       const userData = await authService.googleAuth(googleCredential);
+  //       console.log(userData);
+  //       setUser(userData);
+  //       navigate("/");
+  //       window.location.reload();
+  //     } catch (error) {
+  //       console.error("Google login failed:", error);
+  //     }
+  //   };
+  //   if (window.google && window.google.accounts) {
+  //     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+  //     window.google.accounts.id.initialize({
+  //       client_id: clientId,
+  //       callback: window.logInCallBack,
+  //       ux_mode: "popup",
+  //     });
+
+  //     if (!user) {
+
+  //       window.google.accounts.id.renderButton(
+  //         document.getElementById("googleSignInDiv"),
+  //         {
+  //           theme: "outline",
+  //           size: "large",
+  //           text: "signin_with",
+  //           shape: "rectangular",
+  //           logo_alignment: "left",
+  //         }
+  //       );
+  //     }
+  //   }
+  // }, [user]);
+
   useEffect(() => {
-    window.logInCallBack = async (response) => {
-      try {
-        const googleCredential = response.credential;
-        const userData = await authService.googleAuth(googleCredential);
-        console.log(userData);
-        setUser(userData);
-        navigate("/");
-        window.location.reload();
-      } catch (error) {
-        console.error("Google login failed:", error);
-      }
-    };
-    if (window.google && window.google.accounts) {
+    const initializeGoogleSignIn = () => {
+      if (!window.google || !window.google.accounts) return;
+
       const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
       window.google.accounts.id.initialize({
         client_id: clientId,
-        callback: window.logInCallBack,
+        callback: async (response) => {
+          try {
+            const googleCredential = response.credential;
+            const userData = await authService.googleAuth(googleCredential);
+            setUser(userData);
+            navigate("/");
+            window.location.reload();
+          } catch (error) {
+            console.error("Google login failed:", error);
+          }
+        },
         ux_mode: "popup",
       });
 
@@ -40,7 +78,17 @@ const NavBar = ({ user, handleSignout, setUser }) => {
           }
         );
       }
+    };
+
+    if (window.google && window.google.accounts) {
+      initializeGoogleSignIn();
+    } else {
+      window.addEventListener("load", initializeGoogleSignIn);
     }
+
+    return () => {
+      window.removeEventListener("load", initializeGoogleSignIn);
+    };
   }, [user]);
 
   return (
@@ -54,14 +102,14 @@ const NavBar = ({ user, handleSignout, setUser }) => {
             <Link to="/restaurants" className="navbar-link">
               View all Restaurants
             </Link>
-            <Link onClick={handleSignout} to="/" className="navbar-link">
-              Sign Out
-            </Link>
             <Link to={`/restaurants/owner/${user.id}`} className="navbar-link">
               View My Restaurants
             </Link>
             <Link to="/restaurants/new" className="navbar-link">
               New Restaurant
+            </Link>{" "}
+            <Link onClick={handleSignout} to="/" className="navbar-link">
+              Sign Out
             </Link>
           </div>
         </nav>
