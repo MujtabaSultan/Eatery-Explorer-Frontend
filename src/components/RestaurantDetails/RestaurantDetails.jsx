@@ -162,7 +162,7 @@ const RestaurantDetails = (props) => {
                 .map((item) => (
                   <li key={item._id}>
                     <Link
-                      to={`/restaurants/${restaurant._id}/menu/${item._id}`}
+                      to={`/restaurants/${restaurant._id}/menu/${item._id}`} className="menu-item-link"
                     >
                       {item.name}
                     </Link>

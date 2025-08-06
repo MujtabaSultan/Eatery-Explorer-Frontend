@@ -86,8 +86,10 @@ const foodDetails = (props) => {
       <h4 className="food-name">{food.name}</h4>
       <ul className="food-info">
         <li>dish type : {food.type}</li>
-        <li>dish description :{food.description}</li>
-        <li>price : {food.price}</li>
+        <br />
+        <li>dish description : {food.description}</li>
+        <br />
+        <li>price : ${food.price}</li>
         </ul>
         {props.user.id === restaurant.owner && (
            <div className="food-actions">
