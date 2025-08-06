@@ -66,16 +66,19 @@
 }
 
 .comment {
-  background-color: #fff;
-  border: 1px solid #ddd;
+  /* background-color: #fff;
+  border: 1px solid #ddd; */
   border-radius: 8px;
   padding: 10px;
   margin-bottom: 10px;
+    width: 100%;
+  box-sizing: border-box;
 }
 
 .comment-form {
   display: flex;
   flex-direction: column;
+  background: transparent;
 }
 
 .delete-comment-button {
@@ -98,3 +101,4 @@
   font-size: 1.5em;
   color: #007bff;
 }
+

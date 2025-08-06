@@ -202,7 +202,7 @@ const RestaurantDetails = (props) => {
       </div>
 
       <section className="comments-section">
-        <h2>Comments on {restaurant.name}:</h2>
+        <h2>Comments on <span style={{color:"blue",textTransform:"uppercase"}}>{restaurant.name}</span>:</h2>
         <CommentForm handleAddComment={handleAddComment} />
         {restaurant.comments.length === 0 ? (
           <p>There are no comments.</p>
