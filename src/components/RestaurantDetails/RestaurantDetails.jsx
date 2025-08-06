@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FoodDetails from "../foodDetails/foodDetails";
+import { useConfirm } from "material-ui-confirm";
 // Services
 import restaurantService from "../../services/restaurantService";
 import commentService from "../../services/commentService";
@@ -15,6 +16,8 @@ const RestaurantDetails = (props) => {
   const [restaurant, setRestaurant] = useState(null);
   const [comment, setComment] = useState(null);
   const navigate = useNavigate();
+  const confirm = useConfirm();
+  const { restId } = useParams();
 
   async function getRestaurant() {
     const restaurantData = await restaurantService.show(restaurantsId);
@@ -40,15 +43,38 @@ const RestaurantDetails = (props) => {
 
   const handlesubmitC = async (e) => {
     e.preventDefault();
-    // const res = await restaurantService.deleter(restaurantsId);
-    // console.log(res);
-    // props.setRestId(null);
-    await props.handleDeleteRestaurant(restaurantsId);
-    //navigate(`restaurants/owner/${props.user.id}`);
+    try {
+      await confirm({
+        title: "Delete Restaurant",
+        description: "Are you sure you want to delete this restaurant?",
+        confirmationText: "Yes, delete it",
+        cancellationText: "Cancel",
+      });
+      await props.handleDeleteRestaurant(restaurantsId);
+    } catch {}
+  };
+
+  const deleteRest = async (e) => {
+    e.preventDefault();
+    const { confirmed, reason } = await confirm({
+      description: "This action is permanent!",
+    });
+
+    if (confirmed) {
+      await restaurantService.deleter(restaurantsId);
+     let nowRests = await restaurantService.index()
+     props.setRestaurantsss(nowRests)
+     // window.location.reload
+
+      navigate(`/restaurants/owner/${props.user.id}`);
+    }
+
+    console.log(reason);
   };
 
   const handlesubmitDelete = async (e) => {
     e.preventDefault();
+
     handleDeleteComment(restaurantsId, e.target.id);
 
     const newRes = restaurant.comments.filter(
@@ -162,7 +188,8 @@ const RestaurantDetails = (props) => {
                 .map((item) => (
                   <li key={item._id}>
                     <Link
-                      to={`/restaurants/${restaurant._id}/menu/${item._id}`} className="menu-item-link"
+                      to={`/restaurants/${restaurant._id}/menu/${item._id}`}
+                      className="menu-item-link"
                     >
                       {item.name}
                     </Link>
@@ -193,7 +220,7 @@ const RestaurantDetails = (props) => {
         )}
 
         {props.user.id === restaurant.owner ? (
-          <form onSubmit={handlesubmitC} action="" className="delete-form">
+          <form onSubmit={deleteRest} action="" className="delete-form">
             <button type="submit" className="action-button">
               delete the restaurant
             </button>
@@ -202,7 +229,13 @@ const RestaurantDetails = (props) => {
       </div>
 
       <section className="comments-section">
-        <h2>Comments on <span style={{color:"blue",textTransform:"uppercase"}}>{restaurant.name}</span>:</h2>
+        <h2>
+          Comments on{" "}
+          <span style={{ color: "blue", textTransform: "uppercase" }}>
+            {restaurant.name}
+          </span>
+          :
+        </h2>
         <CommentForm handleAddComment={handleAddComment} />
         {restaurant.comments.length === 0 ? (
           <p>There are no comments.</p>

@@ -17,7 +17,6 @@ import UpdateForm from "./components/RestaurantForm/UpdateForm";
 import OwnerDetails from "./components/OwnerDetails/OwnerDetails";
 import AddFoodForm from "./components/AddFoodForm/AddFoodForm";
 import EditFoodForm from "./components/EditFoodForm/EditFoodForm";
-
 const App = () => {
   const [user, setUser] = useState(authService.getUser());
   const [restaurants, setRestaurants] = useState([]);
@@ -164,6 +163,10 @@ const App = () => {
                     user={user}
                     setSelectedRestaurant={setSelectedRestaurant}
                     handleDeleteRestaurant={handleDeleteRestaurant}
+                    setRestaurants={selectedRestaurant}
+                    setRestaurantsss={setRestaurants}
+                    restaurant={restaurants}
+                    
                   />
                 }
               />
