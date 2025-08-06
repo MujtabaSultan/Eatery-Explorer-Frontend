@@ -15,6 +15,8 @@ const foodDetails = (props) => {
   const [food, setFood] = useState(null);
   const [restoId, setRestoId] = useState(null);
   const [restaurant, setRestaurant] = useState(props.selectedRestaurant);
+    const [tempres, setTempres] = useState(restaurantService.show(restaurantId));
+
 
   // async function getRestaurant() {
   //   const restaurantData = await restaurantService.show(restaurantId);
@@ -91,7 +93,7 @@ const foodDetails = (props) => {
         <br />
         <li>price : ${food.price}</li>
         </ul>
-        {props.user.id === restaurant.owner && (
+        {props.user.id === tempres.owner && (
            <div className="food-actions">
             <Link to={`/restaurants/${restaurantId}/menu/${foodId}/edit`}  className="edit-link">
               Edit
